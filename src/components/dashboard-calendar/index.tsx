@@ -17,7 +17,7 @@ export const DashboardCalendar = async ({ org, userType = 'admin' }: { org: stri
 
 	const [employees, timeOffs, calendarEvents, teams, calendars] = await Promise.all([
 		contractRepo.getAllByOrgWithRelations(org, 'signed'),
-		leaveRepo.getAllByOrgWithRelations(org),
+		leaveRepo.getAllByOrgWithRelations(org, 'approved'),
 		calendarRepo.getAllCalendarEventsByOrg(org),
 		teamsRepo.getAllByOrg(org),
 		calendarRepo.getAllCalendarsByOrg({ org })

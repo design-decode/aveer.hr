@@ -18,7 +18,7 @@ export const CalendarPageComponent = async ({ org, isCalendarState }: { org: str
 	const orgSettingsRepo = new OrgSettingsRepository();
 
 	const [leaves, reminders, employees, orgCalendarSettings, calendars, calendarEvents, teams] = await Promise.all([
-		leaveRepo.getAllByOrgWithRelations(org),
+		leaveRepo.getAllByOrgWithRelations(org, 'approved'),
 		supabase.from('reminders').select('*, profile:profiles!reminders_profile_fkey(id, first_name, last_name)').eq('org', org),
 		contractRepo.getAllByOrgWithProfile({ org, status: 'signed' }),
 		orgSettingsRepo.getByOrg(org),
